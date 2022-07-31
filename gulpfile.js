@@ -15,6 +15,8 @@ const del = require('del');
 const browserSync = require('browser-sync').create();
 const fileInclude = require('gulp-file-include');
 const svgSprite = require('gulp-svg-sprite');
+const replace = require('gulp-replace');
+const cheerio = require('gulp-cheerio');
 
 function browsersync() {
 	browserSync.init({
@@ -65,20 +67,6 @@ function images() {
 		.pipe(dest('dist/images'));
 }
 
-function svgSprites() {
-	return src('app/images/icons/*.svg') // выбираем в папке с иконками все файлы с расширением svg
-	  .pipe(
-		 svgSprite({
-			mode: {
-			  stack: {
-				 sprite: '../sprite.svg', // указываем имя файла спрайта и путь
-			  },
-			},
-		 })
-	  )
-		 .pipe(dest('app/images')); // указываем, в какую папку поместить готовый файл спрайта
- }
-
 const htmlInclude = () => {
 	return src(['app/html/*.html'])
 		.pipe(fileInclude({
@@ -107,6 +95,8 @@ function cleanDist() {
 function scripts() {
 	return src([
 			'node_modules/jquery/dist/jquery.js',
+			'node_modules/slick-carousel/slick/slick.js',
+			'node_modules/jquery-form-styler/dist/jquery.formstyler.js',
 			'app/js/main.js'
 		])
 		.pipe(concat('main.min.js'))
@@ -114,6 +104,30 @@ function scripts() {
 		.pipe(dest('app/js'))
 		.pipe(browserSync.stream());
 }
+
+function svgSprites() {
+	return src('app/images/icons/*.svg') 
+	.pipe(cheerio({
+			run: ($) => {
+				 $("[fill]").removeAttr("fill"); 
+				 $("[stroke]").removeAttr("stroke"); 
+				 $("[style]").removeAttr("style"); 
+			},
+			parserOptions: { xmlMode: true },
+		 })
+	)
+	 .pipe(replace('&gt;','>')) // боремся с заменой символа 
+	 .pipe(
+			 svgSprite({
+				mode: {
+				  stack: {
+					 sprite: '../sprite.svg', 
+				  },
+				},
+			 })
+		  )
+	 .pipe(dest('app/images')); 
+ }
 
 
 function watching() {

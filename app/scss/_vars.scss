@@ -1,0 +1,29 @@
+@use "sass:math";
+$containerWidth: 1160;
+$containerPadding: 20;
+$containerSidePadding: math.div($containerPadding, 2);
+$breakpoint1450: 1449.98 + px;
+$breakpoint1200: 1199.98 + px;
+$breakpoint992: 991.98 + px;
+$breakpoint768: 767.98 + px;
+$breakpoint480: 479.98 + px;
+
+// colors
+
+$black: rgba(26, 10, 3, 0.7);
+$black2: #1a0a03;
+$primary: #ee5514;
+$white: #fff;
+
+//fonts
+%fontFamily2 {
+	font-family: "Source Serif Pro", serif;
+	font-weight: 600;
+}
+
+// Burger Menu
+
+$burgerBreakpoint: $breakpoint992;
+$filterBtnBreakpoint: $breakpoint768;
+$burgerColor: $black;
+$burgerActiveColor: "white";
