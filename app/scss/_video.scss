@@ -1,0 +1,154 @@
+.video {
+	margin: 140px 0;
+	@media (max-width: $breakpoint992) {
+		margin: 110px 0;
+	}
+
+	@media (max-width: $breakpoint768) {
+		margin: 90px 0;
+	}
+
+	@media (max-width: $breakpoint480) {
+		margin: 60px 0;
+	}
+
+	&__inner {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		@media (max-width: $breakpoint992) {
+			flex-wrap: wrap;
+		}
+	}
+	span {
+		color: $primary;
+		@extend %fontFamily2;
+		line-height: 1.5;
+		font-size: 20px;
+		letter-spacing: 0.05em;
+	}
+
+	&__left {
+		margin-right: 70px;
+		@media (max-width: $breakpoint992) {
+			text-align: center;
+			margin: 0 auto 40px;
+		}
+	}
+
+	&__title {
+		max-width: 340px;
+		margin: 10px 0 20px;
+
+		@media (max-width: $breakpoint992) {
+			margin-bottom: 0;
+			max-width: 100%;
+		}
+	}
+
+	p {
+		font-size: 16px;
+		line-height: 1.6;
+		color: $black;
+		max-width: 326px;
+		@media (max-width: $breakpoint992) {
+			max-width: 100%;
+		}
+	}
+
+	&__right {
+		position: relative;
+		@media (max-width: $breakpoint992) {
+			width: 100%;
+		}
+	}
+
+	&__link {
+		max-width: 555px;
+		background-size: cover;
+		background-position: center center;
+		background-repeat: no-repeat;
+		display: inline-block;
+		width: 100%;
+		border-radius: 10px;
+		&:hover .video__img-block {
+			transform: translate3d(-40px, 40px, 0);
+		}
+
+		&::before {
+			@include pseudo;
+			background-color: rgba(0, 0, 0, 0.1);
+			backdrop-filter: blur(5px);
+			border-radius: 10px;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			right: 0;
+			z-index: -1;
+		}
+
+		@media (max-width: $breakpoint992) {
+			max-width: 100%;
+		}
+	}
+
+	&__img {
+		max-height: 326px;
+		border-radius: 10px;
+
+		@media (max-width: $breakpoint992) {
+			width: 100%;
+			max-height: fit-content;
+		}
+	}
+
+	&__img-block {
+		transition: transform 0.3s;
+		transform: translate3d(-50px, 50px, 0);
+		@media (max-width: $breakpoint992) {
+			transform: translate3d(0, 0, 0);
+		}
+		&::after {
+			@include pseudo;
+			width: 100px;
+			height: 100px;
+			background-color: #fff;
+			top: 50%;
+			right: 43%;
+			border-radius: 50%;
+			transform: translateY(-50%);
+
+			@media (max-width: $breakpoint480) {
+				max-height: 80px;
+				max-width: 80px;
+				width: 100%;
+				height: 100%;
+				right: 40%;
+			}
+		}
+
+		&::before {
+			@include pseudo;
+			width: 100px;
+			top: 50%;
+			right: 43%;
+			transform: translateY(-50%);
+			height: 100px;
+			background-color: $primary;
+			mask-image: url("../images/sprite.svg#icon-play");
+			mask-repeat: no-repeat;
+			mask-size: cover;
+			mask-position: center;
+			z-index: 1;
+
+			@media (max-width: $breakpoint480) {
+				max-height: 80px;
+				max-width: 80px;
+				width: 100%;
+				height: 100%;
+				right: 40%;
+			}
+		}
+	}
+}
